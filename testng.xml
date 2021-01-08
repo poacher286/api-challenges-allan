@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Selenium Take Home Test" verbose="1">
+
+    <test name="Selenium Take Home Test">
+        <classes>
+            <class name="allan.runner.Allan_Runner"/>
+        </classes>
+    </test>
+
+</suite>
