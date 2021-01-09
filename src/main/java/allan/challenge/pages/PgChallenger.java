@@ -7,6 +7,7 @@ public class PgChallenger extends APIBase {
     private static final String RESOURCE = "challenger";
 
     public Response getChallengerResponse() {
+        header.remove("X-Challenger");
         return this.getPostResponse(RESOURCE, null);
     }
 

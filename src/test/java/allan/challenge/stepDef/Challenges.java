@@ -1,6 +1,5 @@
 package allan.challenge.stepDef;
 
-import allan.challenge.pages.PgChallenger;
 import allan.challenge.pages.PgChallenges;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

@@ -5,14 +5,13 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import io.cucumber.testng.AbstractTestNGCucumberTests;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
-public class TestBase extends AbstractTestNGCucumberTests {
+public class TestBase  {
 
     static ExtentTest test;
     static ExtentReports report;

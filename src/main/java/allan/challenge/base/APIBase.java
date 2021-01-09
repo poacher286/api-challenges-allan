@@ -1,17 +1,17 @@
 package allan.challenge.base;
 
-import com.aventstack.extentreports.Status;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class APIBase {
-    private final Logger logger = LoggerFactory.getLogger(APIBase.class);
+    public static final ThreadLocal<String> X_CHALLENGER =new ThreadLocal<>();
+    private final Logger logger = LogManager.getLogger(APIBase.class);
 
     private final String endpoint;
     protected Map<String, String> header = new HashMap<>();
@@ -34,6 +34,10 @@ public class APIBase {
                 break;
         }
         header.put("Accept", "*/*");
+        if (X_CHALLENGER.get()==null){
+            X_CHALLENGER.set(this.getPostResponse("challenger", null).getHeader("X-Challenger"));
+        }
+        header.put("X-Challenger", X_CHALLENGER.get());
     }
 
     public Response getPostResponse(String resource, String payload) {
@@ -47,7 +51,6 @@ public class APIBase {
                     .then()
                     .extract().response();
             logger.info("API request success ");
-            TestBase.test.log(Status.PASS, "API request success : " + resource);
         } catch (Exception | AssertionError e) {
             logger.error(e.getMessage());
         }
@@ -64,7 +67,6 @@ public class APIBase {
                     .then()
                     .extract().response();
             logger.info("API request success ");
-            TestBase.test.log(Status.PASS, "API request success : " + resource);
         } catch (Exception | AssertionError e) {
             logger.error(e.getMessage());
         }

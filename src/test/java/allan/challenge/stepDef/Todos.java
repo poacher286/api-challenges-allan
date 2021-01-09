@@ -1,14 +1,12 @@
 package allan.challenge.stepDef;
 
-import allan.challenge.pages.PgChallenges;
 import allan.challenge.pages.PgTodos;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 
 public class Todos {
-    private PgTodos pgTodos;
+    private final PgTodos pgTodos;
 
     private Response todosResponse;
 
@@ -26,4 +24,17 @@ public class Todos {
         todosResponse.then().assertThat().statusCode(statusCode);
     }
 
+    @Then("User call todos api with {string} ID")
+    public void userCallTodosApiWithID(String eligibility) {
+        switch (eligibility.toUpperCase()) {
+            case "ELIGIBLE":
+                todosResponse = pgTodos.getTodosResponse("todos/" +
+                        todosResponse.jsonPath().getJsonObject("todos.id[0]"));
+                break;
+            default:
+            case "INELIGIBLE":
+                todosResponse = pgTodos.getTodosResponse("todos/0");
+                break;
+        }
+    }
 }

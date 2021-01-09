@@ -12,24 +12,13 @@ Feature: Todos
     Then User verify Todos status code 404
 
   @Todos_ID
-  Scenario Outline: User verify Todos API with ID <ID> giving status code <statusCode>
+  Scenario Outline: User verify Todos API with <Eligibility> ID giving status code <statusCode>
 
-    Given User call "todos/<ID>" API
+    Given User call "todos" API
+    Then User call todos api with "<Eligibility>" ID
     Then User verify Todos status code <statusCode>
 
     Examples:
-      | ID | statusCode |
-      | 1  | 200        |
-      | 2  | 200        |
-      | 3  | 200        |
-      | 4  | 200        |
-      | 5  | 200        |
-      | 6  | 200        |
-      | 7  | 200        |
-      | 8  | 200        |
-      | 9  | 200        |
-      | 10 | 200        |
-
-    Examples:
-      | ID | statusCode |
-      | 11 | 404        |
+      | Eligibility | statusCode |
+      | Eligible    | 200        |
+      | Ineligible  | 404        |
