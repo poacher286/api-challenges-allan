@@ -2,3 +2,4 @@
 target/
 *.iml
 /reports/
+/rest-api-challenges-single-player.data.txt
