@@ -2,13 +2,16 @@ package allan.challenge.base;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class APIBase {
+    private Logger logger = LoggerFactory.getLogger(APIBase.class);
 
-    private String endpoint ;
+    private final String endpoint ;
     protected Map<String, String> header = new HashMap<>();
 
     public APIBase() {
@@ -35,6 +38,7 @@ public class APIBase {
                     .post(RestAssured.baseURI)
                     .then()
                     .extract().response();
+            logger.info("API request success ");
         } catch (Exception | AssertionError e) {
             System.out.println("Exception in calling API " + resource + " : " + e.getMessage());
         }
