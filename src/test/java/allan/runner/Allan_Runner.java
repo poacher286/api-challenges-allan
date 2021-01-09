@@ -1,6 +1,6 @@
 package allan.runner;
 
-import io.cucumber.testng.AbstractTestNGCucumberTests;
+import allan.challenge.base.TestBase;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
@@ -12,7 +12,7 @@ import org.testng.annotations.DataProvider;
                          "json:target/cucumber-reports/cucumber.json",
                          "html:target/cucumber-reports/cucumber.html",
                          "junit:target/cucumber-reports/Cucumber.xml",})
-public class Allan_Runner extends AbstractTestNGCucumberTests {
+public class Allan_Runner extends TestBase {
     @DataProvider(parallel = true)
     @Override
     public Object[][] scenarios() {

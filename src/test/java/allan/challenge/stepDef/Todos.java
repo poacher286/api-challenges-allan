@@ -1,11 +1,13 @@
 package allan.challenge.stepDef;
 
+import allan.challenge.base.TestBase;
 import allan.challenge.pages.PgTodos;
+import com.aventstack.extentreports.Status;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 
-public class Todos {
+public class Todos extends TestBase {
     private final PgTodos pgTodos;
 
     private Response todosResponse;
@@ -17,6 +19,7 @@ public class Todos {
     @Given("User call {string} API")
     public void userCallTodosAPI(String resource) {
         todosResponse = pgTodos.getTodosResponse(resource);
+        test.log(Status.PASS, "Todos API called");
     }
 
     @Then("User verify Todos status code {int}")

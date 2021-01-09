@@ -5,25 +5,30 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import org.testng.ITestContext;
+import io.cucumber.testng.AbstractTestNGCucumberTests;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
-public class TestBase  {
+public class TestBase extends AbstractTestNGCucumberTests {
 
-    static ExtentTest test;
-    static ExtentReports report;
-    static ExtentHtmlReporter reporter;
+    public static ExtentTest test;
+    public static ExtentReports report;
+    public static ExtentHtmlReporter reporter;
 
     @BeforeTest
-    public static void startReport(ITestContext iTestContext) {
+    public void startReport() {
         reporter = new ExtentHtmlReporter("./reports/Run_" + System.currentTimeMillis() + "Report.html");
         report = new ExtentReports();
         report.attachReporter(reporter);
-        test = report.createTest(iTestContext.getName());
+
     }
+//
+//    @BeforeMethod
+//    public void beforeMethod(ITestContext iTestContext){
+//        test = report.createTest(iTestContext.getName());
+//    }
 
     @AfterMethod
     public void getResult(ITestResult result) {
@@ -37,6 +42,6 @@ public class TestBase  {
 
     @AfterTest
     public void endReport() {
-        report.flush();
+//        report.flush();
     }
 }

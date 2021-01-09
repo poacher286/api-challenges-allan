@@ -2,8 +2,6 @@ package allan.challenge.base;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,7 +9,6 @@ import java.util.Map;
 
 public class APIBase {
     public static final ThreadLocal<String> X_CHALLENGER =new ThreadLocal<>();
-    private final Logger logger = LogManager.getLogger(APIBase.class);
 
     private final String endpoint;
     protected Map<String, String> header = new HashMap<>();
@@ -50,9 +47,8 @@ public class APIBase {
                     .post(RestAssured.baseURI)
                     .then()
                     .extract().response();
-            logger.info("API request success ");
         } catch (Exception | AssertionError e) {
-            logger.error(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return response;
     }
@@ -66,9 +62,8 @@ public class APIBase {
                     .get(RestAssured.baseURI)
                     .then()
                     .extract().response();
-            logger.info("API request success ");
         } catch (Exception | AssertionError e) {
-            logger.error(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return response;
     }
