@@ -26,11 +26,11 @@ public class APIBase {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                endpoint = "http://localhost:4567";
+                endpoint = "http://localhost:4567/";
                 break;
 
             case "SERVER":
-                endpoint = "https://apichallenges.herokuapp.com";
+                endpoint = "https://apichallenges.herokuapp.com/";
                 break;
         }
         header.put("Accept", "*/*");
