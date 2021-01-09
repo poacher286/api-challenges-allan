@@ -6,8 +6,8 @@ import io.restassured.response.Response;
 public class PgChallenger extends APIBase {
     private static final String RESOURCE = "/challenger";
 
-    public Response getChallengerResponse(){
+    public Response getChallengerResponse() {
         return this.getPostResponse(RESOURCE, null);
     }
-    
+
 }

@@ -8,6 +8,7 @@ import io.restassured.response.Response;
 public class Challenger {
     private final PgChallenger pgChallenger;
     private Response response;
+
     public Challenger() {
         pgChallenger = new PgChallenger();
     }

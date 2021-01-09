@@ -1,6 +1,6 @@
 package allan.runner;
 
-import io.cucumber.testng.AbstractTestNGCucumberTests;
+import allan.challenge.base.TestBase;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(glue = {"allan.challenge.stepDef"},
@@ -8,7 +8,8 @@ import io.cucumber.testng.CucumberOptions;
                  tags = "not @Ignore",
                  publish = true,
                  plugin = {"pretty",
-                         "json:target/cucumber/cucumber.json",
-                         "html:target/cucumber/html"})
-public class Allan_Runner extends AbstractTestNGCucumberTests {
+                         "json:target/cucumber-reports/cucumber.json",
+                         "html:target/cucumber-reports/cucumber.html",
+                         "junit:target/cucumber-reports/Cucumber.xml",})
+public class Allan_Runner extends TestBase {
 }

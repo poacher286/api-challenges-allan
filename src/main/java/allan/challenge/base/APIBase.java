@@ -1,23 +1,30 @@
 package allan.challenge.base;
 
+import com.aventstack.extentreports.Status;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class APIBase {
-    private Logger logger = LoggerFactory.getLogger(APIBase.class);
+    private final Logger logger = LoggerFactory.getLogger(APIBase.class);
 
-    private final String endpoint ;
+    private final String endpoint;
     protected Map<String, String> header = new HashMap<>();
 
     public APIBase() {
-        switch (System.getProperty("environment").toUpperCase()){
+        switch (System.getProperty("environment").toUpperCase()) {
             default:
             case "LOCALHOST":
+                try {
+                    Runtime.getRuntime().exec("java -jar apichallenges.jar");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 endpoint = "http://localhost:4567";
                 break;
 
@@ -39,8 +46,9 @@ public class APIBase {
                     .then()
                     .extract().response();
             logger.info("API request success ");
+            TestBase.test.log(Status.PASS, "API request success : " + resource);
         } catch (Exception | AssertionError e) {
-            System.out.println("Exception in calling API " + resource + " : " + e.getMessage());
+            logger.error(e.getMessage());
         }
         return response;
     }
