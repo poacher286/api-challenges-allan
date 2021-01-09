@@ -6,7 +6,7 @@ Feature: Todos
     Given User call "todos" API
     Then User verify Todos status code 200
 
-  Scenario: User verify Todo API giving 404 error for not plural
+  Scenario: User verify Todos API giving 404 error for not plural
 
     Given User call "todo" API
     Then User verify Todos status code 404
@@ -19,7 +19,6 @@ Feature: Todos
 
     Examples:
       | ID | statusCode |
-      | 0  | 200        |
       | 1  | 200        |
       | 2  | 200        |
       | 3  | 200        |
