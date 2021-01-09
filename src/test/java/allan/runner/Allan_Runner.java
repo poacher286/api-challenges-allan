@@ -1,9 +1,14 @@
 package allan.runner;
 
+import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
-@CucumberOptions(glue = {"src/test/java"},
-        features = {"src/test/resources/features"},
-        plugin = {"pretty", "json:target/cucumber/cucumber.json", "html:target/cucumber/html"})
-public class Allan_Runner {
+@CucumberOptions(glue = {"allan.challenge.stepDef"},
+                 features = {"src/test/resources/features"},
+                 tags = "not @Ignore",
+                 publish = true,
+                 plugin = {"pretty",
+                         "json:target/cucumber/cucumber.json",
+                         "html:target/cucumber/html"})
+public class Allan_Runner extends AbstractTestNGCucumberTests {
 }
