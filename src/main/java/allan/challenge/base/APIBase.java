@@ -19,6 +19,7 @@ public class APIBase {
     public APIBase() {
         switch (System.getProperty("environment").toUpperCase()) {
             default:
+            case "LOCAL":
             case "LOCALHOST":
                 try {
                     Runtime.getRuntime().exec("java -jar apichallenges.jar");
@@ -43,6 +44,23 @@ public class APIBase {
                     .headers(header)
                     .body(payload == null ? "" : payload)
                     .post(RestAssured.baseURI)
+                    .then()
+                    .extract().response();
+            logger.info("API request success ");
+            TestBase.test.log(Status.PASS, "API request success : " + resource);
+        } catch (Exception | AssertionError e) {
+            logger.error(e.getMessage());
+        }
+        return response;
+    }
+
+    public Response getGetResponse(String resource) {
+        Response response = null;
+        try {
+            RestAssured.baseURI = endpoint + resource;
+            response = RestAssured.given()
+                    .headers(header)
+                    .get(RestAssured.baseURI)
                     .then()
                     .extract().response();
             logger.info("API request success ");

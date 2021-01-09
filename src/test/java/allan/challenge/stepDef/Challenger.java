@@ -18,7 +18,7 @@ public class Challenger {
         response = pgChallenger.getChallengerResponse();
     }
 
-    @Then("User verify status code {int}")
+    @Then("User verify Challenger status code {int}")
     public void userVerifyStatusCode(int statusCode) {
         response.then()
                 .assertThat()
