@@ -40,11 +40,10 @@ public class APIBase {
     public Response getPostResponse(String resource, String payload) {
         Response response = null;
         try {
-            RestAssured.baseURI = endpoint + resource;
             response = RestAssured.given()
                     .headers(header)
                     .body(payload == null ? "" : payload)
-                    .post(RestAssured.baseURI)
+                    .post(endpoint + resource)
                     .then()
                     .extract().response();
         } catch (Exception | AssertionError e) {
@@ -56,10 +55,9 @@ public class APIBase {
     public Response getGetResponse(String resource) {
         Response response = null;
         try {
-            RestAssured.baseURI = endpoint + resource;
             response = RestAssured.given()
                     .headers(header)
-                    .get(RestAssured.baseURI)
+                    .get(endpoint + resource)
                     .then()
                     .extract().response();
         } catch (Exception | AssertionError e) {
@@ -71,10 +69,9 @@ public class APIBase {
     public Response getHEADResponse(String resource){
         Response response = null;
         try {
-            RestAssured.baseURI = endpoint + resource;
             response = RestAssured.given()
                     .headers(header)
-                    .head(RestAssured.baseURI)
+                    .head(endpoint + resource)
                     .then()
                     .extract().response();
         } catch (Exception | AssertionError e) {
@@ -86,10 +83,9 @@ public class APIBase {
     protected Response getOPTIONSResponse(String resource) {
         Response response = null;
         try {
-            RestAssured.baseURI = endpoint + resource;
             response = RestAssured.given()
                     .headers(header)
-                    .options(RestAssured.baseURI)
+                    .options(endpoint + resource)
                     .then()
                     .extract().response();
         } catch (Exception | AssertionError e) {
