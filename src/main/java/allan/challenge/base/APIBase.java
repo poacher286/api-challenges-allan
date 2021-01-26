@@ -68,4 +68,33 @@ public class APIBase {
         return response;
     }
 
+    public Response getHEADResponse(String resource){
+        Response response = null;
+        try {
+            RestAssured.baseURI = endpoint + resource;
+            response = RestAssured.given()
+                    .headers(header)
+                    .head(RestAssured.baseURI)
+                    .then()
+                    .extract().response();
+        } catch (Exception | AssertionError e) {
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
+
+    protected Response getOPTIONSResponse(String resource) {
+        Response response = null;
+        try {
+            RestAssured.baseURI = endpoint + resource;
+            response = RestAssured.given()
+                    .headers(header)
+                    .options(RestAssured.baseURI)
+                    .then()
+                    .extract().response();
+        } catch (Exception | AssertionError e) {
+            System.out.println(e.getMessage());
+        }
+        return response;
+    }
 }

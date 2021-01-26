@@ -9,8 +9,8 @@ import org.testng.ITestResult;
 public class CustomListener extends TestBase implements ITestListener {
 
     public synchronized void onTestStart(ITestResult result) {
-        test = report.createTest(result.getInstanceName());
-        test.log(Status.INFO, result.getInstanceName() + " Has Started");
+        test = report.createTest(result.getName());
+        test.log(Status.INFO, result.getName() + " Has Started");
     }
 
     public void onTestSuccess(ITestResult result) {

@@ -18,8 +18,7 @@ public class Todos extends TestBase {
 
     @Given("User call {string} API")
     public void userCallTodosAPI(String resource) {
-        todosResponse = pgTodos.getTodosResponse(resource);
-        test.log(Status.PASS, "Todos API called");
+        this.userCallAPIWithRequest(resource, "GET");
     }
 
     @Then("User verify Todos status code {int}")
@@ -31,13 +30,18 @@ public class Todos extends TestBase {
     public void userCallTodosApiWithID(String eligibility) {
         switch (eligibility.toUpperCase()) {
             case "ELIGIBLE":
-                todosResponse = pgTodos.getTodosResponse("todos/" +
-                        todosResponse.jsonPath().getJsonObject("todos.id[0]"));
+                todosResponse = pgTodos.getTodosResponse("todos/" + todosResponse.jsonPath().getJsonObject("todos.id[0]"));
                 break;
             default:
             case "INELIGIBLE":
                 todosResponse = pgTodos.getTodosResponse("todos/0");
                 break;
         }
+    }
+
+    @Given("User call {string} API with {string} request")
+    public void userCallAPIWithRequest(String resource, String operation) {
+        todosResponse = pgTodos.getTodosResponse(resource, operation);
+        test.log(Status.PASS, "Todos API called with operation : " + operation);
     }
 }

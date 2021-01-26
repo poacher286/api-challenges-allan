@@ -22,3 +22,14 @@ Feature: Todos
       | Eligibility | statusCode |
       | Eligible    | 200        |
       | Ineligible  | 404        |
+
+  @Todos_Operation
+  Scenario Outline: User verify Todos API with <operation> request
+
+    Given User call "todos" API with "<operation>" request
+    Then User verify Todos status code 200
+
+    Examples:
+    |operation|
+    |HEAD     |
+    |OPTIONS  |
