@@ -1,96 +1,41 @@
 package allan.challenge.base;
 
+import allan.challenge.operations.Operation;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import io.restassured.specification.RequestSpecification;
 
 public class APIBase {
-    public static final ThreadLocal<String> X_CHALLENGER =new ThreadLocal<>();
+    public static final ThreadLocal<RequestSpecBuilder> specBuilder = ThreadLocal.withInitial(RequestSpecBuilder::new);
 
-    private final String endpoint;
-    protected Map<String, String> header = new HashMap<>();
+    protected Response getPostResponse(RequestSpecification requestSpecification) {
+        return RestAssured.given().spec(requestSpecification).post().then().extract().response();
+    }
 
-    public APIBase() {
-        switch (System.getProperty("environment").toUpperCase()) {
+    protected Response getGetResponse(RequestSpecification requestSpecification) {
+        return RestAssured.given().spec(requestSpecification).get().then().extract().response();
+    }
+
+    protected Response getHEADResponse(RequestSpecification requestSpecification) {
+        return RestAssured.given().spec(requestSpecification).head().then().extract().response();
+    }
+
+    protected Response getOPTIONSResponse(RequestSpecification requestSpecification) {
+        return RestAssured.given().spec(requestSpecification).options().then().extract().response();
+    }
+
+    protected Response getResponse(RequestSpecification requestSpecification, Operation operation) {
+        switch (operation) {
+            case GET:
+                return this.getGetResponse(requestSpecification);
+            case POST:
+                return this.getPostResponse(requestSpecification);
+            case OPTIONS:
+                return this.getOPTIONSResponse(requestSpecification);
             default:
-            case "LOCAL":
-            case "LOCALHOST":
-                try {
-                    Runtime.getRuntime().exec("java -jar apichallenges.jar");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                endpoint = "http://localhost:4567/";
-                break;
-
-            case "SERVER":
-                endpoint = "https://apichallenges.herokuapp.com/";
-                break;
+            case HEAD:
+                return this.getHEADResponse(requestSpecification);
         }
-        header.put("Accept", "*/*");
-        if (X_CHALLENGER.get()==null){
-            X_CHALLENGER.set(this.getPostResponse("challenger", null).getHeader("X-Challenger"));
-        }
-        header.put("X-Challenger", X_CHALLENGER.get());
-    }
-
-    public Response getPostResponse(String resource, String payload) {
-        Response response = null;
-        try {
-            response = RestAssured.given()
-                    .headers(header)
-                    .body(payload == null ? "" : payload)
-                    .post(endpoint + resource)
-                    .then()
-                    .extract().response();
-        } catch (Exception | AssertionError e) {
-            System.out.println(e.getMessage());
-        }
-        return response;
-    }
-
-    public Response getGetResponse(String resource) {
-        Response response = null;
-        try {
-            response = RestAssured.given()
-                    .headers(header)
-                    .get(endpoint + resource)
-                    .then()
-                    .extract().response();
-        } catch (Exception | AssertionError e) {
-            System.out.println(e.getMessage());
-        }
-        return response;
-    }
-
-    public Response getHEADResponse(String resource){
-        Response response = null;
-        try {
-            response = RestAssured.given()
-                    .headers(header)
-                    .head(endpoint + resource)
-                    .then()
-                    .extract().response();
-        } catch (Exception | AssertionError e) {
-            System.out.println(e.getMessage());
-        }
-        return response;
-    }
-
-    protected Response getOPTIONSResponse(String resource) {
-        Response response = null;
-        try {
-            response = RestAssured.given()
-                    .headers(header)
-                    .options(endpoint + resource)
-                    .then()
-                    .extract().response();
-        } catch (Exception | AssertionError e) {
-            System.out.println(e.getMessage());
-        }
-        return response;
     }
 }

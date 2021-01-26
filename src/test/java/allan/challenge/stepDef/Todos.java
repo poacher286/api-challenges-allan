@@ -1,6 +1,7 @@
 package allan.challenge.stepDef;
 
 import allan.challenge.base.TestBase;
+import allan.challenge.operations.Operation;
 import allan.challenge.pages.PgTodos;
 import com.aventstack.extentreports.Status;
 import io.cucumber.java.en.Given;
@@ -41,7 +42,7 @@ public class Todos extends TestBase {
 
     @Given("User call {string} API with {string} request")
     public void userCallAPIWithRequest(String resource, String operation) {
-        todosResponse = pgTodos.getTodosResponse(resource, operation);
+        todosResponse = pgTodos.getTodosResponse(resource, Operation.valueOf(operation));
         test.log(Status.PASS, "Todos API called with operation : " + operation);
     }
 }
