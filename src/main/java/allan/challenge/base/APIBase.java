@@ -9,20 +9,24 @@ import io.restassured.specification.RequestSpecification;
 public class APIBase {
     public static final ThreadLocal<RequestSpecBuilder> specBuilder = ThreadLocal.withInitial(RequestSpecBuilder::new);
 
-    protected Response getPostResponse(RequestSpecification requestSpecification) {
-        return RestAssured.given().spec(requestSpecification).post().then().extract().response();
+    private RequestSpecification reqSpec(RequestSpecification requestSpecification) {
+        return RestAssured.given().spec(requestSpecification);
     }
 
-    protected Response getGetResponse(RequestSpecification requestSpecification) {
-        return RestAssured.given().spec(requestSpecification).get().then().extract().response();
+    private Response getPostResponse(RequestSpecification requestSpecification) {
+        return reqSpec(requestSpecification).post().thenReturn();
     }
 
-    protected Response getHEADResponse(RequestSpecification requestSpecification) {
-        return RestAssured.given().spec(requestSpecification).head().then().extract().response();
+    private Response getGetResponse(RequestSpecification requestSpecification) {
+        return reqSpec(requestSpecification).get().thenReturn();
     }
 
-    protected Response getOPTIONSResponse(RequestSpecification requestSpecification) {
-        return RestAssured.given().spec(requestSpecification).options().then().extract().response();
+    private Response getHEADResponse(RequestSpecification requestSpecification) {
+        return reqSpec(requestSpecification).head().thenReturn();
+    }
+
+    private Response getOPTIONSResponse(RequestSpecification requestSpecification) {
+        return reqSpec(requestSpecification).options().thenReturn();
     }
 
     protected Response getResponse(RequestSpecification requestSpecification, Operation operation) {

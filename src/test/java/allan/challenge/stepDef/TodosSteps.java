@@ -8,12 +8,12 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 
-public class Todos extends TestBase {
+public class TodosSteps extends TestBase {
     private final PgTodos pgTodos;
 
     private Response todosResponse;
 
-    public Todos() {
+    public TodosSteps() {
         pgTodos = new PgTodos();
     }
 

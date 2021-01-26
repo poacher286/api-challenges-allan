@@ -10,11 +10,11 @@ import io.restassured.response.Response;
 
 import static allan.challenge.base.APIBase.specBuilder;
 
-public class Challenger extends TestBase {
+public class ChallengerSteps extends TestBase {
     private final PgChallenger pgChallenger;
     private Response response;
 
-    public Challenger() {
+    public ChallengerSteps() {
         pgChallenger = new PgChallenger();
     }
 

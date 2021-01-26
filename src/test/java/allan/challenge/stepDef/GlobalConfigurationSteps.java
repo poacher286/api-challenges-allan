@@ -8,10 +8,10 @@ import io.cucumber.java.en.Then;
 
 import java.util.Map;
 
-public class GlobalConfigurationStep extends TestBase {
+public class GlobalConfigurationSteps extends TestBase {
     private final PgSpecBuilder pgSpecBuilder;
 
-    public GlobalConfigurationStep() {
+    public GlobalConfigurationSteps() {
         pgSpecBuilder = new PgSpecBuilder();
     }
 
