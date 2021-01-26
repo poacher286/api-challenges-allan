@@ -9,7 +9,10 @@ public class PgSpecBuilder extends APIBase {
 
     private void runAPIChallengeService() {
         try {
-            Runtime.getRuntime().exec("java -jar apichallenges.jar");
+            Process process = Runtime.getRuntime().exec("java -jar apichallenges.jar");
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                if (process.isAlive()) process.destroyForcibly();
+            }));
         } catch (IOException e) {
             e.printStackTrace();
         }
