@@ -3,8 +3,6 @@ Feature: Todos
 
   Background: User set global URI
     Given User set base URI
-    Then User set header
-      | Accept | */* |
     And User call Challenger API
     And User set X-Challenger value in header
 
@@ -41,3 +39,25 @@ Feature: Todos
       | operation |
       | HEAD      |
       | OPTIONS   |
+
+  @Todos_Accept_Challenge
+  Scenario Outline: User verify Todos API with <accept> as Accept header request
+
+    Then User set header
+      | <headerKey> | <accept> |
+    Given User call "todos" API
+    Then User verify Todos status code <statusCode>
+
+    Examples:
+      | headerKey | accept                            | statusCode |
+      | Accept    | */*                               | 200        |
+      | Accept    | application/xml                   | 200        |
+      | Accept    | application/json                  | 200        |
+      | Accept    | application/xml, application/json | 200        |
+      | Accept    | application/gzip                  | 406        |
+
+  @Todos_Accept_Challenge_No_Header
+  Scenario: User verify Todos API with no Accept header request
+
+    Given User call "todos" API
+    Then User verify Todos status code 200
