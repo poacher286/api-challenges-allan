@@ -7,11 +7,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 
-public class Challenges extends TestBase {
+public class ChallengesSteps extends TestBase {
     private Response response;
     private final PgChallenges pgChallenges;
 
-    public Challenges() {
+    public ChallengesSteps() {
         pgChallenges = new PgChallenges();
     }
 

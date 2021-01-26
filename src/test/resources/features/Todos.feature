@@ -1,6 +1,14 @@
 @Todos
 Feature: Todos
 
+  Background: User set global URI
+    Given User set base URI
+    Then User set header
+      | Accept | */* |
+    And User call Challenger API
+    And User set X-Challenger value in header
+
+  @Todo_start
   Scenario: User verify Todos API
 
     Given User call "todos" API
@@ -30,6 +38,6 @@ Feature: Todos
     Then User verify Todos status code 200
 
     Examples:
-    |operation|
-    |HEAD     |
-    |OPTIONS  |
+      | operation |
+      | HEAD      |
+      | OPTIONS   |
