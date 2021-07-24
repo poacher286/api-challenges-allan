@@ -59,5 +59,7 @@ Feature: Todos
   @Todos_Accept_Challenge_No_Header
   Scenario: User verify Todos API with no Accept header request
 
+    Then User remove header
+      |Accept|
     Given User call "todos" API
     Then User verify Todos status code 200

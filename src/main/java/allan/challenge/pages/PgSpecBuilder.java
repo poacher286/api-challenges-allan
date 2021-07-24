@@ -38,4 +38,11 @@ public class PgSpecBuilder extends APIBase {
     public void setHeaders(Map<String, String> dataMap) {
         specBuilder.get().addHeaders(dataMap);
     }
+
+    public void removeHeader(String header) {
+        specBuilder.get().addFilter((filterableRequestSpecification, filterableResponseSpecification, filterContext) -> {
+            filterableRequestSpecification.removeHeader(header);
+            return filterContext.next(filterableRequestSpecification, filterableResponseSpecification);
+        });
+    }
 }

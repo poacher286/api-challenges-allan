@@ -11,11 +11,23 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
+import java.io.File;
+
 public class TestBase extends AbstractTestNGCucumberTests {
 
     public static ExtentTest test;
     public static ExtentReports report;
     public static ExtentHtmlReporter reporter;
+
+    static {
+        File theDir = new File("./reports");
+        if (!theDir.exists()) {
+            boolean mkdir = theDir.mkdir();
+            if (!mkdir){
+                System.out.println("Directory creation failed.");
+            }
+        }
+    }
 
     @BeforeTest
     public void startReport() {

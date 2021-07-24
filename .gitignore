@@ -1,5 +1,6 @@
 .idea/
 target/
 *.iml
+.DS_Store
 /reports/
 /rest-api-challenges-single-player.data.txt
